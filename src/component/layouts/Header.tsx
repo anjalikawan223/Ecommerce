@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Header(){
 
     return(
@@ -7,8 +9,8 @@ export function Header(){
                     <a href="#" className="text-xl font-bold text-emerald-700">logo</a>
                     <nav className="hidden md:flex gap-6 text-sm font-medium">
                     <a href="#" className="hover:text-emerald-700">New arrivals</a>
-                    <a href="#" className="hover:text-emerald-700">Home</a>
-                    <a href="#" className="hover:text-emerald-700">Shop</a>
+                    <Link to="/" className="hover:text-emerald-700">Home</Link>
+                    <Link to="/search" className="hover:text-emerald-700">Shop</Link>
                     </nav>
                     <div className="flex items-center gap-4">
                     <input type="search" placeholder="Search products" className="hidden sm:block w-48 rounded-full border border-stone-300 px-4 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"/>
