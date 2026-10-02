@@ -3,7 +3,7 @@ import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 
 export function HomePage(){
-
+  
     return(
         <>
             <Header/>
