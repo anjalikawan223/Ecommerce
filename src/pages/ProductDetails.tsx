@@ -8,7 +8,7 @@ export function ProductDetails(){
 
     return (
         <>
-
+        <Header/>
         <ProductContent />
         {/* <!-- You May Also Like --> */}
         <section className="max-w-6xl mx-auto px-4 pb-20">

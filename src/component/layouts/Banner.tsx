@@ -32,7 +32,7 @@ export function Banner(){
         return <p>Loading.....</p>;
     }
 
-    console.log(sliders)
+    // console.log(sliders)
 
     if (sliders.length === 0) {
         return null;

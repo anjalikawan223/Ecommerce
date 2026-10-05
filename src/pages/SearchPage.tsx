@@ -1,7 +1,34 @@
+import { useEffect, useState } from "react";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
+import { Recommendation, type ProductRecommended } from "../api/productService";
 
 export function SearchPage(){
+
+    const [products, setProducts] = useState<ProductRecommended[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const result = await Recommendation("your-product-slug");
+
+                console.log("hi",result);
+
+                setProducts(result.data.data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
 
     return(
         <>   
@@ -93,26 +120,31 @@ export function SearchPage(){
 
                     <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
 
-                        <article className="group rounded-lg bg-white border border-stone-200 overflow-hidden">
-                            <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
-                                <img src="https://i.ebayimg.com/images/g/yjAAAeSwpLBqm4sj/s-l960.jpg" alt="" className= "w-full h-full object-cover"/> 
-                                <span className="absolute top-2 left-2 rounded bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">20% off</span>
-                            </div>
-                            <div className="p-4">
-                                    
-                                <div className="flex justify-between text-sm text-gray-500 pb-2">
-                                    <h3 className="font-medium text-stone-500k">Ceramic Mug Set</h3>
-                                    <span className="font-semibold text-gray-900"><span className="text-yellow-500">★</span> 5.0</span>
-                                </div> 
+                        {products.map((product) => (
 
-                                <p className="text-sm text-black font-bold pb-2">Jordan Air Jordan 11 Retro "GAMMA" Blue High-Top Retro Men's Basketball Shoes</p>
-                                    
-                                <div className="mt-2 flex items-baseline gap-2">
-                                    <span className="font-bold">$24.00</span>
-                                    <span className="text-gray-400 line-through">$99.00</span>
+                            <article className="group rounded-lg bg-white border border-stone-200 overflow-hidden">
+                                <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
+                                    <img key={product._id} src={product.thumbnail} alt={product.name} className= "w-full h-full object-cover"/> 
+                                    {product.discountPercentage > 0 && (
+                                    <span className="absolute top-2 left-2 rounded bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700"> 
+                                    {product.discountPercentage}% off</span> )}
                                 </div>
-                            </div>
-                        </article>
+                                <div className="p-4">
+                                        
+                                    <div className="flex justify-between text-sm text-gray-500 pb-2">
+                                        <h3 className="font-medium text-stone-500k">{product.brand}</h3>
+                                        <span className="font-semibold text-gray-900"><span className="text-yellow-500">★</span>{product.averageRating}</span>
+                                    </div> 
+
+                                    <p className="text-sm text-black font-bold pb-2">{product.name}</p>
+                                        
+                                    <div className="mt-2 flex items-baseline gap-2">
+                                        <span className="font-bold">  ${product.basePrice}</span>
+                                        <span className="text-gray-400 line-through">$99.00</span>
+                                    </div>
+                                </div>
+                            </article>
+                        ))}
                     </div>
                 </div>    
             </main>
