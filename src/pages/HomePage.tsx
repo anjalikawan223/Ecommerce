@@ -17,10 +17,10 @@ export function HomePage(){
         const details = async() => {
             try{
                 // setLoading(true);
-                const respone = await Recommendation();
-                console.log(respone)
-                if (respone.success) {
-                    setProductList(response.data.products);
+                const response = await Recommendation();
+                console.log(response)
+                if (response.success) {
+                    setProductList(response.data.data);
                 }
                 
             }catch(error){

@@ -11,7 +11,7 @@ export interface ProductView{
     brand: string;
     averageRating: number;
     numberofReviews: number;
-    thumbnail: String;
+    thumbnail: string;
 }
 
 export interface productsearch{
@@ -22,10 +22,28 @@ export interface productsearch{
         page: number;
         pages: number;
         total: number;
-        sizeCounts: {}
+        sizeCounts: {
+            XS?: number;
+            S?: number;
+            M?: number;
+            L?: number;
+            XL?: number;
+        }
      }
 }
-
+export interface ProductSearchParams {
+    keyword?: string;
+    limit?: number;
+    page?: number;
+    sort?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    sizes?: string;
+}
+export const getProducts = async (params: ProductSearchParams): Promise<productsearch> => {
+    const response = await api.get("/products", {params});
+        return response.data;
+    };
 
 
 //product Details
@@ -39,52 +57,48 @@ export interface ProductContentDetail{
     discountPercentage: number;
     category: string;
     brand: string,
-    totalStock: number;
-
-
+    totalStock: number;  
+    averageRating: number;
+    numberOfReviews:number
 }
 
 export interface ProductImage{
     url: string;
     altText: string;
     _id: string;
-    averageRating: number;
-    numberOfReviews: number;
-
 }
 
-export interface Product{
-    content: ProductContentDetail[];
-    imagedetail: ProductImage[];
+export interface ProductVariant{
+        sku: string;
+        attributes: {
+            Size: string;
+            Color: string;
+        },
+        price: number;
+        stock: number;
+        images: string[];
+        _id: string;
+}
+
+export interface  ProductSpecifications{
+        Condition: string;
+        Location: string;
+}
+
+export interface Product extends ProductContentDetail {
+    images: ProductImage[];
+    variants:  ProductVariant[];
+    specifications: ProductSpecifications;
 }
 
 export interface ProductRespone{
     success: boolean;
     messag: string;
-    data: {
-        data: Product[];
-
-        variants:{
-            sku: string;
-            attributes: {
-                Size: string;
-                Color: string;
-            },
-            price: number;
-            stock: number;
-            images: string;
-            _id: string;
-        }[];
-
-        specifications: {
-            Condition: string;
-            Location: string;
-        };
-    };
+    data: Product;   
 }
 
 export const ProductDetails= async (slug: string): Promise<ProductRespone> => {
-    const resp = await api.get(`/product/${slug}`);
+    const resp = await api.get(`/products/${slug}`);
     return resp.data;
 }
 
@@ -92,13 +106,13 @@ export const ProductDetails= async (slug: string): Promise<ProductRespone> => {
 //showing recommended
 export interface ProductRecommended{
     _id: string;
-      name: string;
-      slug: string;
-      basePrice: number;
-      discountPercentage: number;
-      brand: string;
-      averageRating: number
-      thumbnail: string;
+    name: string;
+    slug: string;
+    basePrice: number;
+    discountPercentage: number;
+    brand: string;
+    averageRating: number
+    thumbnail: string;
 }
 
 export interface DataRecommended{

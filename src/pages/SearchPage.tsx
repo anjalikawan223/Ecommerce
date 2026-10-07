@@ -1,58 +1,101 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
-import { Recommendation, type ProductRecommended } from "../api/productService";
+import { Recommendation, getProducts, type ProductRecommended, type ProductView } from "../api/productService";
 
 export function SearchPage(){
 
-    const [products, setProducts] = useState<ProductRecommended[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState<ProductView[]>([]);
+    const[search, setSearch] = useState("");
+
+    const[minPrice, setMinPrice] = useState(0);
+    const[maxPrice, setMaxPrice] = useState(1000);
+
+    const[selectedSizes, setSelectedSizes] = useState<string[]>([]);
+    
+
 
     useEffect(() => {
         const fetchProducts = async () => {
+
+                const params = {
+                    keyword: search,
+                    limit: 8,
+                    minPrice: minPrice,
+                    maxPrice: maxPrice,
+                    sizes: selectedSizes.length > 0
+                        ? selectedSizes.join(",")
+                        : undefined
+                };
             try {
-                const result = await Recommendation("your-product-slug");
+                const result = await getProducts(params);
 
-                console.log("hi",result);
-
-                setProducts(result.data.data);
+                setProducts(result.data.products);
             } catch (error) {
                 console.error("Error fetching products:", error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         fetchProducts();
-    }, []);
+    }, [search, selectedSizes, minPrice, maxPrice]);
 
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
+     // Size checkbox
+     const handleSizeChange = (size: string) => {
+
+        setSelectedSizes((previous) => {
+
+            if (previous.includes(size)) {
+
+                return previous.filter((item) => item !== size);
+
+            }
+
+            return [...previous, size];
+
+        });
+
+    };
+
+
+    // Search form
+    const handleSearch = (e: React.FormEvent) => {
+
+        e.preventDefault();
+
+        // Search is already controlled by `search`
+        console.log("Searching:", search);
+
+    };
 
     return(
         <>   
            <Header/>
 
-           <main className="max-w-7xl mx-auto px-4 py-8 flex gap-10">
+           <main className="max-w-7xl mx-auto px-4 py-8 flex gap-10 ">
 
                 {/* <!-- Filters --> */}
                 <aside className="w-60 shrink-0">
                 <h2 className="text-xl font-bold">Filters</h2>
 
                 {/* <!-- Size --> */}
-                <div className="mt-8">
+                <div className="mt-4">
                     <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold">Size</span>
                     <span className="text-gray-500 text-xs">⌃</span>
                     </div>
 
                     <div className="mt-4 space-y-3 text-sm">
-                    <label className="flex items-center justify-between cursor-pointer">
-                        <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> XS</span>
-                        <span className="text-gray-400">(0)</span>
-                    </label>
-                    <label className="flex items-center justify-between cursor-pointer">
+                        {["XS", "S", "M", "L","XL"].map((size) => (
+                            <label key={size} className="flex items-center justify-between cursor-pointer">
+                            <span className="flex items-center gap-3">
+                                <input 
+                                checked={selectedSizes.includes(size)}onChange={() => handleSizeChange(size)}
+                                type="checkbox" className="h-4 w-4 accent-black" /> {size}</span>
+                            <span className="text-gray-400">(0)</span>
+                        </label>    
+                        ))}
+                    
+                    {/* <label className="flex items-center justify-between cursor-pointer">
                         <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> S</span>
                         <span className="text-gray-400">(44)</span>
                     </label>
@@ -67,7 +110,7 @@ export function SearchPage(){
                     <label className="flex items-center justify-between cursor-pointer">
                         <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> XL</span>
                         <span className="text-gray-400">(62)</span>
-                    </label>
+                    </label> */}
                     </div>
                 </div>
 
@@ -81,12 +124,14 @@ export function SearchPage(){
                     <div className="mt-4 flex items-center gap-3">
                     <div className="relative flex-1">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
-                        <input type="number" value="0" className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+                        <input value={minPrice}onChange={(e) =>
+                                setMinPrice(Number(e.target.value))} type="number"  className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                     </div>
                     <span className="text-gray-300">–</span>
                     <div className="relative flex-1">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
-                        <input type="number" value="1000" className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+                        <input type="number"   value={maxPrice}onChange={(e) =>
+                                    setMaxPrice(Number(e.target.value))} className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                     </div>
                     </div>
                 </div>
@@ -96,10 +141,10 @@ export function SearchPage(){
                 <div className="flex-1 min-w-0">
 
                     {/* <!-- Search bar --> */}
-                    <form className="flex gap-3 py-8">
+                    <form className="flex gap-3 py-8" onSubmit={handleSearch}>
                         <div className="relative flex-1">
                         <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500">🔍</span>
-                        <input type="search" placeholder="Search for products..."
+                        <input type="search" value={search}onChange={(e) => setSearch(e.target.value)} placeholder="Search for products..."
                                 className="w-full rounded-full bg-gray-100 py-4 pl-14 pr-5 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                         </div>
                         <button type="submit" className="flex items-center gap-2 rounded-full bg-black px-8 font-semibold text-white hover:bg-gray-800">
@@ -122,14 +167,14 @@ export function SearchPage(){
 
                         {products.map((product) => (
 
-                            <article className="group rounded-lg bg-white border border-stone-200 overflow-hidden">
+                            <article key={product._id} className="group rounded-lg bg-white border border-stone-200 overflow-hidden ">
                                 <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
-                                    <img key={product._id} src={product.thumbnail} alt={product.name} className= "w-full h-full object-cover"/> 
+                                    <img  src={product.thumbnail} alt={product.name} className= "w-full h-full object-cover"/> 
                                     {product.discountPercentage > 0 && (
                                     <span className="absolute top-2 left-2 rounded bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700"> 
                                     {product.discountPercentage}% off</span> )}
                                 </div>
-                                <div className="p-4">
+                                <div className="p-8">
                                         
                                     <div className="flex justify-between text-sm text-gray-500 pb-2">
                                         <h3 className="font-medium text-stone-500k">{product.brand}</h3>
