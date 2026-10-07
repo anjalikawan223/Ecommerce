@@ -14,7 +14,7 @@ export interface ProductView{
     thumbnail: string;
 }
 
-export interface productsearch{
+export interface productSearch{
     success: boolean;
     message: string;
     data: {
@@ -40,7 +40,7 @@ export interface ProductSearchParams {
     maxPrice?: number;
     sizes?: string;
 }
-export const getProducts = async (params: ProductSearchParams): Promise<productsearch> => {
+export const getProducts = async (params: ProductSearchParams): Promise<productSearch> => {
     const response = await api.get("/products", {params});
         return response.data;
     };
@@ -89,6 +89,7 @@ export interface Product extends ProductContentDetail {
     images: ProductImage[];
     variants:  ProductVariant[];
     specifications: ProductSpecifications;
+    youMayAlsoLike: ProductRecommended[];
 }
 
 export interface ProductRespone{
@@ -126,6 +127,7 @@ export interface DataRecommended{
 
 export const Recommendation = async (slug: string): Promise<DataRecommended> =>{
     const detail = await api.get(`/products/recommendrd/${slug}`);
+    console.log(detail)
     return detail.data;
 
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 import { Recommendation, getProducts, type ProductRecommended, type ProductView } from "../api/productService";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SearchPage(){
 
@@ -12,6 +13,8 @@ export function SearchPage(){
     const[maxPrice, setMaxPrice] = useState(1000);
 
     const[selectedSizes, setSelectedSizes] = useState<string[]>([]);
+
+    const navigate = useNavigate();
     
 
 
@@ -169,7 +172,8 @@ export function SearchPage(){
 
                             <article key={product._id} className="group rounded-lg bg-white border border-stone-200 overflow-hidden ">
                                 <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
-                                    <img  src={product.thumbnail} alt={product.name} className= "w-full h-full object-cover"/> 
+                                    <Link to= {`/product/${product.slug}`}>
+                                    <img src={product.thumbnail} alt={product.name} className= "w-full h-full object-cover"/> </Link>
                                     {product.discountPercentage > 0 && (
                                     <span className="absolute top-2 left-2 rounded bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700"> 
                                     {product.discountPercentage}% off</span> )}
@@ -180,8 +184,10 @@ export function SearchPage(){
                                         <h3 className="font-medium text-stone-500k">{product.brand}</h3>
                                         <span className="font-semibold text-gray-900"><span className="text-yellow-500">★</span>{product.averageRating}</span>
                                     </div> 
-
+                                    
+                                    <div onClick={() => navigate(`/product/${product.slug}`)}>
                                     <p className="text-sm text-black font-bold pb-2">{product.name}</p>
+                                    </div>
                                         
                                     <div className="mt-2 flex items-baseline gap-2">
                                         <span className="font-bold">  ${product.basePrice}</span>
