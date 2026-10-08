@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ProductDetails, type Product, type ProductRespone } from "../../api/productService";
+import { ProductDetails, type Product } from "../../api/productService";
 import { useParams } from "react-router-dom";
 
 export function ProductContent ({setRecommendProduct}){
