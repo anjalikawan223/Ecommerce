@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeDetails, type Slider } from "../../api/content";
+import { HomeSkeleton } from "../uiState/HomeSkeleton";
 
 export function Banner() {
     const [sliders, setSliders] = useState<Slider[]>([]);
@@ -30,25 +31,7 @@ export function Banner() {
 
     if (loading) {
         return (
-            <section className="relative bg-emerald-800 h-[70dvh]">
-                <div className="absolute inset-0 bg-black/40"></div>
-                <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-32 h-10 w-40 animate-pulse">
-                    <h1 className="max-w-xl text-3xl font-bold md:text-5xl h-10 w-20 animate-pulse"></h1>
-                    <p className="mt-4 max-w-md text-emerald-100">
-                        
-                    </p>
-                    <Link to="/" className="mt-8 inline-block rounded-md bg-white px-6 py-3 font-semibold text-emerald-800 hover:bg-emerald-50">
-                       <p className="h-3 w-15 bg-gray-400 animate-pulse"></p>
-                    </Link>
-
-
-                    <div className="mt-10 flex items-center gap-4">
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/40">‹</button>
-                        <span className="text-sm"></span>
-                        <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/40"></button>
-                    </div>
-                </div>
-            </section>
+          <HomeSkeleton />
         )
     }
 
