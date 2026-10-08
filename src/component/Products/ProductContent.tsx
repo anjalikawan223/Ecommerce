@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { ProductDetails, type Product, type ProductRespone } from "../../api/productService";
+import { ProductDetails, type Product } from "../../api/productService";
 import { useParams } from "react-router-dom";
+import { ProductContentSkeleton } from "../uiState/ProductPageSkeleton";
 
 export function ProductContent ({setRecommendProduct}){
     const [detail, setDetail] = useState<Product | null>(null);
@@ -13,14 +14,9 @@ export function ProductContent ({setRecommendProduct}){
         const fetchProduct = async() => {
             if (!slug) return;
             try {  
-
                 const result = await ProductDetails(slug);
-                // //  if (result.success) {
-                //     setDetail(result.data);
-                // // }
                  setDetail(result.data);
                  setRecommendProduct(result.data.youMayAlsoLike)
-                // console.log(setDetail(result.data.data[0]))
             } catch (error) {
                 console.log("Failed to fetch product:", error);
             }
@@ -28,13 +24,9 @@ export function ProductContent ({setRecommendProduct}){
          fetchProduct();
     },[slug]);
 
-
-   
-    // console.log(detail)
-
     if (!detail) {
     return (
-        <p>Loading product...</p>
+        <ProductContentSkeleton/>
     )   
     }
 
@@ -43,7 +35,6 @@ export function ProductContent ({setRecommendProduct}){
     const variants = detail.variants ?? [];
 
     const specifications = detail.specifications;
-
     
     const oldPrice = detail ? detail.basePrice /
           (1 - detail.discountPercentage / 100): 0;

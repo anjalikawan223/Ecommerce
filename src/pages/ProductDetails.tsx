@@ -1,11 +1,9 @@
-// import { useState } from "react";
-
-import { ProductContent } from "../component/Products/ProductContent";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 import { type ProductRecommended, } from "../api/productService";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ProductContent } from "../component/Products/ProductContent";
 
 export function ProductDetails() {
 
