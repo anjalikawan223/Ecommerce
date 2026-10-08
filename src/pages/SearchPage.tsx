@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
-import { Recommendation, getProducts, type ProductRecommended, type ProductView } from "../api/productService";
+import { getProducts, type ProductView } from "../api/productService";
 import { Link, useNavigate } from "react-router-dom";
+import { SearchSkeleton } from "../component/uiState/searchSkeleton";
 
 export function SearchPage(){
 
+    const [loading, setLoading] = useState<Boolean>(true);
     const [products, setProducts] = useState<ProductView[]>([]);
     const[search, setSearch] = useState("");
 
@@ -20,7 +22,6 @@ export function SearchPage(){
 
     useEffect(() => {
         const fetchProducts = async () => {
-
                 const params = {
                     keyword: search,
                     limit: 8,
@@ -31,16 +32,23 @@ export function SearchPage(){
                         : undefined
                 };
             try {
+                setLoading(true);
                 const result = await getProducts(params);
 
                 setProducts(result.data.products);
             } catch (error) {
                 console.error("Error fetching products:", error);
-            } 
+            }finally{
+                setLoading(false);
+            }
         };
 
         fetchProducts();
     }, [search, selectedSizes, minPrice, maxPrice]);
+
+    // if(loading){
+    //     setLoading(<SearchSkeleton/>);
+    // }
 
      // Size checkbox
      const handleSizeChange = (size: string) => {
@@ -70,51 +78,40 @@ export function SearchPage(){
 
     };
 
-    return(
-        <>   
-           <Header/>
+    // if(loading){
+    //     return(
+    //         <SearchSkeleton/>
+    //     )
+    // }
 
-           <main className="max-w-7xl mx-auto px-4 py-8 flex gap-10 ">
+    return( 
+        <>
+        <Header/>
+        {loading ? <SearchSkeleton /> : 
+        <main className="max-w-7xl mx-auto px-4 py-8 flex gap-10 ">
 
-                {/* <!-- Filters --> */}
-                <aside className="w-60 shrink-0">
-                <h2 className="text-xl font-bold">Filters</h2>
+            {/* <!-- Filters --> */}
+            <aside className="w-60 shrink-0">
+            <h2 className="text-xl font-bold">Filters</h2>
 
-                {/* <!-- Size --> */}
-                <div className="mt-4">
-                    <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold">Size</span>
-                    <span className="text-gray-500 text-xs">⌃</span>
-                    </div>
+            {/* <!-- Size --> */}
+            <div className="mt-4">
+                <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold">Size</span>
+                <span className="text-gray-500 text-xs">⌃</span>
+                </div>
 
-                    <div className="mt-4 space-y-3 text-sm">
-                        {["XS", "S", "M", "L","XL"].map((size) => (
-                            <label key={size} className="flex items-center justify-between cursor-pointer">
-                            <span className="flex items-center gap-3">
-                                <input 
-                                checked={selectedSizes.includes(size)}onChange={() => handleSizeChange(size)}
-                                type="checkbox" className="h-4 w-4 accent-black" /> {size}</span>
-                            <span className="text-gray-400">(0)</span>
-                        </label>    
-                        ))}
-                    
-                    {/* <label className="flex items-center justify-between cursor-pointer">
-                        <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> S</span>
-                        <span className="text-gray-400">(44)</span>
-                    </label>
-                    <label className="flex items-center justify-between cursor-pointer">
-                        <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> M</span>
-                        <span className="text-gray-400">(43)</span>
-                    </label>
-                    <label className="flex items-center justify-between cursor-pointer">
-                        <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> L</span>
-                        <span className="text-gray-400">(44)</span>
-                    </label>
-                    <label className="flex items-center justify-between cursor-pointer">
-                        <span className="flex items-center gap-3"><input type="checkbox" className="h-4 w-4 accent-black" /> XL</span>
-                        <span className="text-gray-400">(62)</span>
-                    </label> */}
-                    </div>
+                <div className="mt-4 space-y-3 text-sm">
+                    {["XS", "S", "M", "L","XL"].map((size) => (
+                    <label key={size} className="flex items-center justify-between cursor-pointer">
+                        <span className="flex items-center gap-3">
+                            <input 
+                            checked={selectedSizes.includes(size)}onChange={() => handleSizeChange(size)}
+                            type="checkbox" className="h-4 w-4 accent-black" /> {size}</span>
+                        <span className="text-gray-400">(0)</span>
+                    </label>    
+                     ))}
+                </div>
                 </div>
 
                 {/* <!-- Price range --> */}
@@ -154,7 +151,6 @@ export function SearchPage(){
                         Search <span>→</span>
                         </button>
                     </form>
-                
 
                     <div className="flex items-center justify-between mb-6">
                         <span className="text-[16px]">Showing 8 recommended products</span>
@@ -164,12 +160,10 @@ export function SearchPage(){
                             <option>Price: High to low</option>
                         </select>
                     </div>
-
-
+  
                     <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
 
                         {products.map((product) => (
-
                             <article key={product._id} className="group rounded-lg bg-white border border-stone-200 overflow-hidden ">
                                 <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
                                     <Link to= {`/product/${product.slug}`}>
@@ -179,16 +173,14 @@ export function SearchPage(){
                                     {product.discountPercentage}% off</span> )}
                                 </div>
                                 <div className="p-8">
-                                        
                                     <div className="flex justify-between text-sm text-gray-500 pb-2">
                                         <h3 className="font-medium text-stone-500k">{product.brand}</h3>
                                         <span className="font-semibold text-gray-900"><span className="text-yellow-500">★</span>{product.averageRating}</span>
                                     </div> 
-                                    
-                                    <div onClick={() => navigate(`/product/${product.slug}`)}>
-                                    <p className="text-sm text-black font-bold pb-2">{product.name}</p>
-                                    </div>
                                         
+                                    <div onClick={() => navigate(`/product/${product.slug}`)}>
+                                        <p className="text-sm text-black font-bold pb-2">{product.name}</p>
+                                    </div>      
                                     <div className="mt-2 flex items-baseline gap-2">
                                         <span className="font-bold">  ${product.basePrice}</span>
                                         <span className="text-gray-400 line-through">$99.00</span>
@@ -198,12 +190,9 @@ export function SearchPage(){
                         ))}
                     </div>
                 </div>    
-            </main>
-
-            <Footer />
-
+            </main>}
+        <Footer />
         </>
-
-
+        
     )
 }
