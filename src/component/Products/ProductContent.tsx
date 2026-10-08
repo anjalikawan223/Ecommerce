@@ -2,18 +2,15 @@ import { useEffect, useState } from "react"
 import { ProductDetails, type Product, type ProductRespone } from "../../api/productService";
 import { useParams } from "react-router-dom";
 
-export function ProductContent (){
+export function ProductContent ({setRecommendProduct}){
     const [detail, setDetail] = useState<Product | null>(null);
     const {slug}= useParams<{slug: string}>();
     const[selectedSize, setSelectedSize] = useState<string>("");
     const [selectedImage, setSelectedImage] = useState(0);  
 
-
-
     useEffect(() =>{
         
         const fetchProduct = async() => {
-
             if (!slug) return;
             try {  
 
@@ -22,6 +19,7 @@ export function ProductContent (){
                 //     setDetail(result.data);
                 // // }
                  setDetail(result.data);
+                 setRecommendProduct(result.data.youMayAlsoLike)
                 // console.log(setDetail(result.data.data[0]))
             } catch (error) {
                 console.log("Failed to fetch product:", error);

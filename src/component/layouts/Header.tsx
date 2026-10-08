@@ -13,7 +13,9 @@ export function Header(){
                     <Link to="/search" className="hover:text-emerald-700">Shop</Link>
                     </nav>
                     <div className="flex items-center gap-4">
+                    <Link to={`/search`}>
                     <input type="search" placeholder="Search products" className="hidden sm:block w-48 rounded-full border border-stone-300 px-4 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"/>
+                    </Link>
                     <a href="#" className="relative text-sm font-medium">Cart
                         <span className="absolute -top-2 -right-4 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">2</span>
                     </a>
