@@ -4,6 +4,7 @@ import { type ProductRecommended, } from "../api/productService";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductContent } from "../component/Products/ProductContent";
+import { ProductSkeleton } from "../component/uiState/HomeSkeleton";
 
 export function ProductDetails() {
 
@@ -24,7 +25,7 @@ export function ProductDetails() {
             <ProductContent setRecommendProduct={setRecommendProduct} />
             {/* <!-- You May Also Like --> */}
 
-            {isRecommendingProduct ? <p>is loading data .....</p>
+            {isRecommendingProduct ? <ProductSkeleton/>
                 :
                 <section className="max-w-6xl mx-auto px-4 pb-20">
                     <div className="flex items-center justify-between mb-8">

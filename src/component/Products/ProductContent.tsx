@@ -186,33 +186,33 @@ export function ProductContent ({setRecommendProduct}){
         {/* <!-- Details tabs + image --> */}
         <section className="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-10">
             <div>
-            {/* <!-- Tabs --> */}
-            <div className="flex gap-8 border-b text-sm font-medium text-gray-400" id="tabs">
-                <button className="tab pb-3 -mb-px border-b-2 border-black text-black" data-tab="details">Details</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="materials">Materials</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="size">Size &amp; Fit</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="shipping">Shipping &amp; Returns</button>
-            </div>
+                {/* <!-- Tabs --> */}
+                <div className="flex gap-8 border-b text-sm font-medium text-gray-400" id="tabs">
+                    <button className="tab pb-3 -mb-px border-b-2 border-black text-black" data-tab="details">Details</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="materials">Materials</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="size">Size &amp; Fit</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="shipping">Shipping &amp; Returns</button>
+                </div>
 
-            {/* <!-- Tab content --> */}
-            <div className="panel mt-8">
-                <p className="text-black leading-relaxed">
-                {detail.description}             
-                </p>
-                <ul className="mt-6 space-y-4 text-sm">
-                <li className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                    <span className="font-semibold">Condition:</span>{specifications?.Condition}
-                </li>
-                <li className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                    <span className="font-semibold">Location:</span>{specifications?.Location}
-                </li>
-                </ul>
-            </div>
-            <div className="panel hidden mt-8 text-black">Patent leather and mesh upper with a translucent rubber outsole.</div>
-            <div className="panel hidden mt-8 text-black">True to size. Order half a size up if you prefer a looser fit.</div>
-            <div className="panel hidden mt-8 text-black">Free shipping on orders over $99. 30-day return policy.</div>
+                {/* <!-- Tab content --> */}
+                <div className="panel mt-8">
+                    <p className="text-black leading-relaxed">
+                    {detail.description}             
+                    </p>
+                    <ul className="mt-6 space-y-4 text-sm">
+                    <li className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+                        <span className="font-semibold">Condition:</span>{specifications?.Condition}
+                    </li>
+                    <li className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+                        <span className="font-semibold">Location:</span>{specifications?.Location}
+                    </li>
+                    </ul>
+                </div>
+                <div className="panel hidden mt-8 text-black">Patent leather and mesh upper with a translucent rubber outsole.</div>
+                <div className="panel hidden mt-8 text-black">True to size. Order half a size up if you prefer a looser fit.</div>
+                <div className="panel hidden mt-8 text-black">Free shipping on orders over $99. 30-day return policy.</div>
             </div>
             
             {images.length > 0 && (

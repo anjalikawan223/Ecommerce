@@ -34,10 +34,6 @@ export function HomePage(){
         navigate(`/product/${slug}`);
     };
 
-    // if(!loading){
-    //     return( 
-    //     <ProductSkeleton/>)
-    // }
   
     return(
         <>

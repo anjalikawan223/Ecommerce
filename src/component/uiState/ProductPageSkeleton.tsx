@@ -4,82 +4,70 @@ export function ProductContentSkeleton(){
             <main className="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-10">
                 <div className="flex gap-4">
                     <div className="flex flex-col gap-3 ">
-                        <button className="w-20 h-24 rounded-lg overflow-hidden border-2">
-                            <img className="w-full h-full object-cover" />
-                        </button>
+                        <div className="w-20 h-24 bg-gray-300 rounded-lg animate-pulse"></div>
                     </div>
                     <div className="flex-1">
-                        <img className="w-full h-[550px] object-contain rounded-2xl"/>
+                        <div className="w-full h-[550px] bg-gray-300 rounded-2xl animate-pulse"/>
                     </div>      
                 </div>
                 <div className="ps-12">
-                    <p className="inline-block bg-gray-100 text-xs font-semibold px-3 py-1.5 rounded"></p>
-                    <h1 className="text-4xl font-bold leading-tight mt-4"></h1>
+                    <div className=" bg-gray-300 rounded w-32 h-7 animate-pulse"></div>
+                    <div className=" mt-4 h-16 w-3/4 rounded bg-gray-300 animate-pulse"></div>
                     <div className="flex items-center gap-2 mt-4 text-sm">
-                    <span className="text-black tracking-widest"></span>
-                    <span className="text-gray-600"></span>
-                </div>
-                <div className="flex items-center gap-3 mt-5">
-                    <span className="text-4xl font-bold"></span>
-                    <span className="text-gray-400 line-through"></span>
-                    <span className="text-gray-400 line-through"></span>
-                    <span className="bg-black text-white text-xs font-semibold px-2 py-1 rounded"></span>   
-                </div>
-                <p className="text-gray-600 mt-5 leading-relaxed text-sm max-w-md"></p>
-                <p className="text-gray-600 mt-5 leading-relaxed text-sm max-w-md"></p>
-                <div className="flex justify-between items-center mt-8 text-sm">
-                    <p><span className="font-semibold">Size:</span></p>
-                    <a href="#" className="text-gray-500 underline"></a>
-                </div>
-                <div className="flex gap-3 mt-3">
-                    <button className="w-14 h-12 border rounded-lg text-sm font-medium"></button>
-                </div>
-                <div className="flex gap-3 mt-8">
-                    <button className="flex-1 bg-black text-white h-14 rounded-xl font-semibold hover:bg-gray-800 transition"></button>
-                    <button className="w-14 h-14 border rounded-xl text-xl hover:bg-gray-50">♡</button>
-                </div>
-                <div className="grid grid-cols-3 gap-4 mt-10 pt-6 border-t text-xs">
-                    <div>
-                        <p className="font-semibold text-sm"></p>
-                        <p className="text-gray-500 mt-1"></p>
+                        <span className="rounded bg-gray-300 w-24 h-4 animate-pulse"></span>
+                        <span className="rounded bg-gray-300 h-4 w-20 animate-pulse"></span>
                     </div>
-                    <div>
-                        <p className="font-semibold text-sm"></p>
-                        <p className="text-gray-500 mt-1"></p>
+                    <div className="flex items-center gap-3 mt-5">
+                        <span className="rounded bg-gray-300 h-7 w-24 animate-pulse"></span>
+                        <span className="rounded bg-gray-300 h-5 w-16 animate-pulse"></span>
+                        <span className="h-5 w-12 bg-gray-300 rounded animate-pulse"></span>   
                     </div>
-                    <div>
-                        <p className="font-semibold text-sm"></p>
-                        <p className="text-gray-500 mt-1"></p>
+                    <p className=" mt-5 rounded bg-gray-300 animate-pulse h-4 w-24"></p>
+                    <p className="mt-5 rounded bg-gray-300 animate-pulse h-12 w-full"></p>
+                    <div className="flex justify-between items-center mt-8 text-sm ">
+                        <p className="rounded bg-gray-300 animate-pulse h-4 w-28"></p>
+                        <a href="#" className="rounded bg-gray-300 underline animate-pulse h-4 w-18"></a>
                     </div>
+                    <div className="flex gap-3 mt-3">
+                        <button className="w-14 h-12 rounded-lg bg-gray-300 animate-pulse"></button>
                     </div>
-            </div>
+                    <div className="flex gap-3 mt-8">
+                        <button className=" animate-pulse bg-gray-300 h-14 rounded-xl w-full"></button>
+                        <button className="w-14 h-14 bg-gray-300 rounded-xl text-xl animate-pulse"></button>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 mt-10 pt-6 border-t text-xs">
+                        <div>
+                            <p className="animate-pulse rounded bg-gray-300 h-4 w-16"></p>
+                            <p className="rounded bg-gray-300 animate-pulse mt-1 h-2 w-18"></p>
+                        </div>
+                        <div>
+                            <p className="animate-pulse rounded bg-gray-300 h-4 w-16"></p>
+                            <p className="rounded bg-gray-300 animate-pulse mt-1 h-2 w-18"></p>
+                        </div>
+                        <div>
+                            <p className="rounded bg-gray-300 animate-pulse h-4 w-16"></p>
+                            <p className="rounded bg-gray-300 mt-1 animate-pulse h-2 w-18"></p>
+                        </div>
+                    </div>
+                </div>
             </main>
 
             <section className="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-10">
                 <div>
-                    <div className="flex gap-8 border-b text-sm font-medium text-gray-400" id="tabs">
-                        <button className="tab pb-3 -mb-px border-b-2 border-black text-black" data-tab="details"></button>
-                        <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="materials"></button>
-                        <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="size"></button>
-                        <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="shipping"></button>
+                    <div className="flex gap-8 border-b text-sm font-medium py-4">
+                        <button className="rounded bg-gray-300 animate-pulse h-6 w-16 " data-tab="details"></button>
+                        <button className="rounded bg-gray-300 animate-pulse h-6 w-16" data-tab="materials"></button>
+                        <button className="rounded bg-gray-300 animate-pulse h-6 w-16" data-tab="size"></button>
+                        <button className="rounded bg-gray-300 animate-pulse h-6 w-24" data-tab="shipping"></button>
                     </div>
                     <div className="panel mt-8">
-                        <p className="text-black leading-relaxed"></p>
-                        <ul className="mt-6 space-y-4 text-sm">
-                            <li className="flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                                <span className="font-semibold"></span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                                <span className="font-semibold"></span>
-                            </li>
-                        </ul>
+                        <p className="rounded h-16 w-3/4 bg-gray-300 animate-pulse"></p>
                     </div>
-                    <div className="panel hidden mt-8 text-black"></div>
-                    <div className="panel hidden mt-8 text-black"></div>
-                    <div className="panel hidden mt-8 text-black"></div>
-                </div>               
+                    <div className="mt-8 rounded bg-gray-300 animate-pulse"></div>
+                    <div className="mt-8 rounded bg-gray-300 animate-pulse"></div>
+                    <div className="mt-8 rounded bg-gray-300 animate-pulse"></div>
+                </div>      
+                <div className="w-full h-[400px] rounded-2xl bg-gray-400 animate-pulse"></div>         
             </section>
         </>
     )
