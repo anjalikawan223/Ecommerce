@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
-import { ProductDetails, type Product } from "../../api/productService";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
+import { ProductDetails, type Product, type ProductRecommended } from "../../api/productService";
 import { useParams } from "react-router-dom";
 import { ProductContentSkeleton } from "../uiState/ProductPageSkeleton";
 
-export function ProductContent ({setRecommendProduct}){
+
+export function ProductContent ({setRecommendProduct}: {setRecommendProduct: Dispatch<SetStateAction<ProductRecommended[]>>; }){
     const [detail, setDetail] = useState<Product | null>(null);
     const {slug}= useParams<{slug: string}>();
     const[selectedSize, setSelectedSize] = useState<string>("");
