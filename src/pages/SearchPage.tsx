@@ -3,7 +3,7 @@ import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 import { getProducts, type ProductView } from "../api/productService";
 import { Link, useNavigate } from "react-router-dom";
-import { SearchSkeleton } from "../component/uiState/searchSkeleton";
+import { SearchSkeleton } from "../component/uiState/SearchSkeleton";
 
 export function SearchPage(){
 
