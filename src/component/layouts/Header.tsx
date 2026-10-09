@@ -19,6 +19,9 @@ export function Header(){
                     <a href="#" className="relative text-sm font-medium">Cart
                         <span className="absolute -top-2 -right-4 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">2</span>
                     </a>
+                    <Link to={`\login`} className="relative text-sm font-medium">
+                    
+                    </Link>
                     </div>
                 </div>
             </header>
