@@ -19,8 +19,11 @@ export function Header(){
                     <a href="#" className="relative text-sm font-medium">Cart
                         <span className="absolute -top-2 -right-4 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">2</span>
                     </a>
-                    <Link to={`\login`} className="relative text-sm font-medium">
-                    
+                    <Link to={`/login`} className="relative text-sm/8 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                            <circle cx="12" cy="8" r="3.5" />
+                            <path stroke-linecap="round" d="M5 21a7 7 0 0 1 14 0"/>
+                        </svg>
                     </Link>
                     </div>
                 </div>

@@ -3,7 +3,10 @@ import { HomePage } from "./pages/HomePage"
 import { SearchPage } from "./pages/SearchPage"
 import { ProductDetails } from "./pages/ProductDetails"
 import { SignUpPages } from "./pages/SignupPage"
-// import { ProductContent } from "./component/Products/ProductContent"
+import { VerificationEmail } from "./component/LoginDetails/VerificationEmail"
+import { ProductListStyle } from "./component/LoginDetails/ProductListStyle"
+import { AccountSet } from "./component/LoginDetails/AllSet"
+
 
 function App() {
  
@@ -16,6 +19,9 @@ function App() {
           <Route path="/search" element={<SearchPage/>}></Route>
           <Route path="/product/:slug" element={<ProductDetails />} ></Route>
           <Route path="/login" element={<SignUpPages />}></Route>
+          <Route path="/emailverify" element={<VerificationEmail />}></Route>
+          <Route path="/style" element={<ProductListStyle />}></Route>
+          <Route path="/allset" element={<AccountSet />}></Route>
         </Routes>
     </BrowserRouter>
         
