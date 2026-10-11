@@ -6,6 +6,7 @@ import { SignUpPages } from "./pages/SignupPage"
 import { VerificationEmail } from "./component/LoginDetails/VerificationEmail"
 import { ProductListStyle } from "./component/LoginDetails/ProductListStyle"
 import { AccountSet } from "./component/LoginDetails/AllSet"
+import { RegisterFormDetails } from "./component/LoginDetails/RegisterFormDetails"
 
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
           <Route path="/search" element={<SearchPage/>}></Route>
           <Route path="/product/:slug" element={<ProductDetails />} ></Route>
           <Route path="/login" element={<SignUpPages />}></Route>
+          <Route path="/signup" element={<RegisterFormDetails />}></Route>
           <Route path="/emailverify" element={<VerificationEmail />}></Route>
           <Route path="/style" element={<ProductListStyle />}></Route>
-          <Route path="/allset" element={<AccountSet />}></Route>
+          <Route path="/complete" element={<AccountSet />}></Route>
         </Routes>
     </BrowserRouter>
         

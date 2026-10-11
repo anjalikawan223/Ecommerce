@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
 
@@ -66,12 +67,13 @@ export function VerificationEmail(){
                             </div>
 
                             <p id="form-error" className="hidden text-sm text-red-700" role="alert"></p>
-
+                            <Link to="/style">
                             <button type="submit"
                                 className="mt-4 inline-flex h-14 w-full max-w-[290px] bg-black items-center justify-center gap-3 rounded-full bg-ink px-8 font-medium text-white shadow-lg shadow-ink/20 transition hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
                                 Continue
                                 <svg className="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                             </button>
+                            </Link>
 
                             <p className="mt-8 text-sm text-mute">
                             <a href="/login" className="underline underline-offset-2 hover:text-ink">Use a different email address</a>

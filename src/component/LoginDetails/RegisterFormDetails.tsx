@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
 
@@ -102,32 +103,33 @@ export function RegisterFormDetails(){
                                 </div>
 
                                 <p id="form-error" className="hidden text-sm text-red-700" role="alert"></p>
-
+                                <Link to="/emailverify">
                                 <button type="submit"
                                     className="mt-4 inline-flex h-14 w-full max-w-[290px] bg-black items-center justify-center gap-3 rounded-full bg-ink px-8 font-medium text-white shadow-lg shadow-ink/20 transition hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
                                     Continue
                                     <svg className="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                                 </button>
+                                </Link>
                             </form>
 
                             <p className="mt-8 text-sm text-mute">
-                            Already have an account? <a href="/login" className="underline underline-offset-2 hover:text-ink">Sign in</a>
+                            Already have an account? <Link to="/login" className="underline underline-offset-2 hover:text-ink">Sign in</Link>
                             </p>
 
                             {/* <!-- Perks --> */}
                             <ul className="mt-10 grid gap-5 border-t border-line pt-8 text-sm text-mute sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-line">
-                            <li className="flex items-center gap-3 sm:pr-4">
-                                <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M3 12.5V4h8.5L21 13.5 13.5 21 3 12.5Z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg>
-                                Exclusive member offers
-                            </li>
-                            <li className="flex items-center gap-3 sm:px-4">
-                                <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M2 6h11v10H2zM13 9h4l3 3v4h-7"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg>
-                                Early access to new drops
-                            </li>
-                            <li className="flex items-center gap-3 sm:pl-4">
-                                <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="m12 3 2.7 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17.2 6.4 20.3l1.2-6.3L3 9.6l6.3-.8L12 3Z"/></svg>
-                                Personalized picks
-                            </li>
+                                <li className="flex items-center gap-3 sm:pr-4">
+                                    <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M3 12.5V4h8.5L21 13.5 13.5 21 3 12.5Z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg>
+                                    Exclusive member offers
+                                </li>
+                                <li className="flex items-center gap-3 sm:px-4">
+                                    <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M2 6h11v10H2zM13 9h4l3 3v4h-7"/><circle cx="6.5" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg>
+                                    Early access to new drops
+                                </li>
+                                <li className="flex items-center gap-3 sm:pl-4">
+                                    <svg className="h-6 w-6 shrink-0 text-ink" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="m12 3 2.7 5.8 6.3.8-4.6 4.4 1.2 6.3L12 17.2 6.4 20.3l1.2-6.3L3 9.6l6.3-.8L12 3Z"/></svg>
+                                    Personalized picks
+                                </li>
                             </ul>
                     </div>
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RegisterFormDetails } from "../component/LoginDetails/RegisterFormDetails";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
@@ -45,12 +46,12 @@ export function SignUpPages(){
                                 </div>
                             </div>
                             <p id="form-error" className="hidden text-sm text-red-700" role="alert"></p>
-                            <button type="submit" className="mt-4 inline-flex h-14 w-full max-w-[290px] bg-black items-center justify-center gap-3 rounded-full bg-ink px-8 font-medium text-white shadow-lg shadow-ink/20 transition hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
+                            <button  type="submit" className="mt-4 inline-flex h-14 w-full max-w-[290px] bg-black items-center justify-center gap-3 rounded-full bg-ink px-8 font-medium text-white shadow-lg shadow-ink/20 transition hover:bg-ink/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
                                 Login </button>
                         </form>
 
                         <p className="mt-8 text-sm text-mute">
-                            Don't have an account? <a href="/login" className="underline underline-offset-2 hover:text-ink">Sign up</a>
+                            Don't have an account? <Link to="/signup" className="underline underline-offset-2 hover:text-ink">Sign up</Link>
                         </p>
                     </div>
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
 
@@ -49,11 +50,12 @@ export function AccountSet(){
                             style just for you
                         </p>
                     </div>
+                    <Link to="/search">
                     <button className="mt-6 w-[180px] h-[35px] rounded-full bg-[#171b1f] text-white text-[10px] font-medium flex items-center justify-center gap-4 hover:bg-black transition">
                         Start Shopping
                         <span className="text-sm">→</span>
-                    </button>
-                    <a href="#" className="inline-block mt-4 text-[9px] text-gray-500 underline hover:text-black">Go to your account</a>
+                    </button></Link>
+                    <a href="/login" className="inline-block mt-4 text-[9px] text-gray-500 underline hover:text-black">Go to your account</a>
                 </div>
 
                 {/* CENTER WELCOME */}

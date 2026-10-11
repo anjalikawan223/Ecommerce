@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
 
@@ -132,10 +133,13 @@ export function ProductListStyle(){
                     </div>
                     {/* BUTTONS */}
                     <div className="flex items-center gap-4">
+                        <Link to="/complete">
                         <button className="w-[170px] h-11 rounded-full bg-black text-white text-xs font-medium flex items-center justify-center gap-4 hover:bg-gray-800 transition">
-                            Continue<span className="text-base">→</span></button>
+                            Continue<span className="text-base">→</span></button></Link>
+                        <Link to="/style">  
                         <button className="flex items-center gap-2 text-[12px] text-black hover:text-black">
                         <span>←</span>Back</button>
+                        </Link>  
 
                     </div>
                 </div>
