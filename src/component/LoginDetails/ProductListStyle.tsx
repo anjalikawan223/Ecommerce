@@ -5,7 +5,6 @@ import { Header } from "../layouts/Header";
 export function ProductListStyle(){
     return(
         <>
-        <Header />
         <section className="min-h-screen bg-[#f5f3ed] flex items-center justify-center p-4">
             <div className="w-full max-w-[1050px] min-h-[680px] bg-[#faf9f5] rounded-xl overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr]">
                 <div className="px-6 sm:px-10 lg:px-12 py-7">
@@ -157,7 +156,6 @@ export function ProductListStyle(){
                 
             </div>
         </section>
-        <Footer/>
         </>
     )
 }

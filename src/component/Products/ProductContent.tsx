@@ -34,6 +34,7 @@ export function ProductContent ({setRecommendProduct}: {setRecommendProduct: Dis
     const images  = detail.images ?? [];
 
     const variants = detail.variants ?? [];
+    console.log(variants)
 
     const specifications = detail.specifications;
     

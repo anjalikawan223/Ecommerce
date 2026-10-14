@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { RegisterFormDetails } from "../component/LoginDetails/RegisterFormDetails";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 
@@ -7,7 +6,6 @@ export function SignUpPages(){
 
     return(
         <>
-            <Header />
             <section className="min-h-screen bg-[#f5f3ed] flex items-center justify-center p-4">
                 <div className="w-full max-w-[1050px] min-h-[680px] bg-[#faf9f5] rounded-xl overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-2">
                     {/* <!-- Form side --> */}
@@ -32,8 +30,8 @@ export function SignUpPages(){
                                         className="h-[52px] w-full rounded-md border border-line bg-white/40 px-4 pr-12 placeholder:text-mute focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/20" />
                                     <button type="button" id="toggle-pw" aria-label="Show password" aria-pressed="false"
                                         className="absolute inset-y-0 right-0 grid w-12 place-items-center text-ink/70 hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 rounded-md">
-                                        <svg id="eye-on" className="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-                                        <svg id="eye-off" className="hidden h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+                                        <svg id="eye-on" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        <svg id="eye-off" className="hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.5 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
                                     </button>
                                 </div>
 
@@ -64,7 +62,6 @@ export function SignUpPages(){
                     </div>
                 </div>
             </section>
-            <Footer />
         </>
     )
 }

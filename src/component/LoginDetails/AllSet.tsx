@@ -5,7 +5,6 @@ import { Header } from "../layouts/Header";
 export function AccountSet(){
     return(
         <>
-        <Header />
         <section className="min-h-screen bg-[#f5f3ed] flex items-center justify-center p-2">
             <div className="w-full max-w-[1400px] h-[450px] bg-[#faf9f5] rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row gap-4 ">
                 <div className="w-[64%] px-12 py-18">
@@ -90,7 +89,6 @@ export function AccountSet(){
 
             </div>
         </section>
-        <Footer />
         </>
     )
 }

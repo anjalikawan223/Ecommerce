@@ -17,7 +17,7 @@ export function HomePage(){
             try{
                 setLoading(true);
                 const response = await getProducts({limit:4});
-                console.log(response)
+                // console.log(response)
                     setProductList(response.data.products);
                 
             }catch(error){
@@ -37,7 +37,6 @@ export function HomePage(){
   
     return(
         <>
-            <Header/>
 
             <Banner />
 
@@ -82,8 +81,6 @@ export function HomePage(){
                     </div>   
                 </section> 
             } 
-            <Footer/>
-
         </>
     )
 }
