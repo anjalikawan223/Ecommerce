@@ -6,19 +6,31 @@ export function Header(){
 
         <header className="sticky top-0 z-10 bg-white border-b border-stone-200">
                 <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-                    <a href="#" className="text-xl font-bold text-emerald-700">logo</a>
+                    <Link to="/" className="text-xl font-bold text-black">VOGUE.</Link>
                     <nav className="hidden md:flex gap-6 text-sm font-medium">
-                    <a href="#" className="hover:text-emerald-700">New arrivals</a>
+                    <a href="#" className="hover:text-black">New arrivals</a>
                     <Link to="/" className="hover:text-emerald-700">Home</Link>
                     <Link to="/search" className="hover:text-emerald-700">Shop</Link>
                     </nav>
                     <div className="flex items-center gap-4">
                     <Link to={`/search`}>
-                    <input type="search" placeholder="Search products" className="hidden sm:block w-48 rounded-full border border-stone-300 px-4 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" mstroke-linejoin="round" d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/>
+                    </svg>
                     </Link>
-                    <a href="#" className="relative text-sm font-medium">Cart
-                        <span className="absolute -top-2 -right-4 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">2</span>
+                    <a href="#" className="relative text-sm font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 8h12l1 13H5L6 8Z"/>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 8a3 3 0 0 1 6 0"/>
+                        </svg>
+                        <span className="absolute -top-2 -right-2 bg-black text-white text-[7px] w-3.5 h-3.5 rounded-full flex items-center justify-center">3</span>
                     </a>
+                    <Link to="/login" className="relative text-sm/8 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <circle cx="12" cy="8" r="3.5" />
+                            <path strokeLinecap="round" d="M5 21a7 7 0 0 1 14 0"/>
+                        </svg>
+                    </Link>
                     </div>
                 </div>
             </header>
