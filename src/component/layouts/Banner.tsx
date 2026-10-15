@@ -60,7 +60,7 @@ export function Banner() {
             <div className="absolute inset-0 bg-black/40"></div>
 
 
-            <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-32">
+            <div className="relative z-0 mx-auto max-w-6xl px-4 py-16 md:py-32">
                 <h1 className="max-w-xl text-3xl font-bold md:text-5xl">{slider.title}</h1>
                 <p className="mt-4 max-w-md text-emerald-100">
                     {slider.description}
