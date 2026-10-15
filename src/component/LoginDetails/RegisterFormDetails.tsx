@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { Footer } from "../layouts/Footer";
-import { Header } from "../layouts/Header";
 
 export function RegisterFormDetails(){
     return(
