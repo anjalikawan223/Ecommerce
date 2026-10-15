@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { Footer } from "../component/layouts/Footer";
-import { Header } from "../component/layouts/Header";
 
 export function SignUpPages(){
 

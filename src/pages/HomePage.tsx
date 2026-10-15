@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Banner } from "../component/layouts/Banner";
-import { Footer } from "../component/layouts/Footer";
-import { Header } from "../component/layouts/Header";
 import { getProducts, type ProductRecommended } from "../api/productService";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductSkeleton } from "../component/uiState/HomeSkeleton";

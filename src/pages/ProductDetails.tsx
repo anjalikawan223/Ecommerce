@@ -1,5 +1,3 @@
-import { Footer } from "../component/layouts/Footer";
-import { Header } from "../component/layouts/Header";
 import { type ProductRecommended, } from "../api/productService";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
