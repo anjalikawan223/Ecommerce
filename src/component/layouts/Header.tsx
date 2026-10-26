@@ -10,7 +10,7 @@ export function Header(){
                 <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
                     <Link to="/" className="text-xl font-bold text-black">VOGUE.</Link>
                     <nav className="hidden md:flex gap-6 text-sm font-medium">
-                        <a href="#" className="hover:text-black">New rrivals</a>
+                        <a href="#" className="hover:text-black">New Arrivals</a>
                         <Link to="/" className="hover:text-emerald-700">Home</Link>
                         <Link to="/search" className="hover:text-emerald-700">Shop</Link>
                     </nav>
