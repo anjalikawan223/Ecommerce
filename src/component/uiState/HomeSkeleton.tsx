@@ -1,30 +1,31 @@
 export function HomeSkeleton(){
 
     return(
-        <section className="relative bg-emerald-800">
+        <section className="relative bg-emerald-800 min-h-[100svh] w-full isolate flex">
             <div className="absolute inset-0 bg-emerald-700 animate-pulse"></div>
-            <div className="relative z-10 mx-auto h-full max-w-6xl px-4 py-16 md:py-32">
-                {/* Heading */}
-                <div className="h-10 w-3/4 max-w-xl rounded bg-emerald-600 animate-pulse md:h-14"></div>
-        
-                {/* Description */}
-                <div className="mt-5 space-y-3">
-                    <div className="h-4 w-96 max-w-full rounded bg-emerald-600 animate-pulse"></div>
-                    <div className="h-4 w-72 max-w-full rounded bg-emerald-600 animate-pulse"></div>
+            <div className="relative z-10 w-full min-h-[100svh] flex items-center">
+                <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:py-20">
+                    {/* Heading */}
+                    <div className="h-10 w-3/4 max-w-xl rounded bg-emerald-600 animate-pulse md:h-14"></div>
+            
+                    {/* Description */}
+                    <div className="mt-5 space-y-3">
+                        <div className="h-4 w-96 max-w-full rounded bg-emerald-600 animate-pulse"></div>
+                        <div className="h-4 w-72 max-w-full rounded bg-emerald-600 animate-pulse"></div>
+                    </div>
+            
+                    {/* Button */}
+                    <div className="mt-8 h-12 w-32 rounded-md bg-emerald-600 animate-pulse"></div>
+            
+                    {/* Controls */}
+                    <div className="mt-10 flex items-center gap-4">
+                        <div className="h-10 w-10 rounded-full bg-emerald-600 animate-pulse"></div>
+            
+                        <div className="h-4 w-20 rounded bg-emerald-600 animate-pulse"></div>
+            
+                        <div className="h-10 w-10 rounded-full bg-emerald-600 animate-pulse"></div>
+                    </div>
                 </div>
-        
-                {/* Button */}
-                <div className="mt-8 h-12 w-32 rounded-md bg-emerald-600 animate-pulse"></div>
-        
-                {/* Controls */}
-                <div className="mt-10 flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-full bg-emerald-600 animate-pulse"></div>
-        
-                    <div className="h-4 w-20 rounded bg-emerald-600 animate-pulse"></div>
-        
-                    <div className="h-10 w-10 rounded-full bg-emerald-600 animate-pulse"></div>
-                </div>
-        
             </div>
         </section>
         
