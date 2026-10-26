@@ -39,7 +39,7 @@ export function Banner(){
     return(
         // Banner slider
         <section className="relative isolate flex overflow-hidden bg-emerald-800 text-white w-full min-h-[100svh]">
-            
+            hii
             {sliders.map((item, index) => (
                 <img
                 key={item.id}
