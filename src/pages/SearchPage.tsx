@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Footer } from "../component/layouts/Footer";
-import { Header } from "../component/layouts/Header";
 import { getProducts, type ProductView } from "../api/productService";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchSkeleton } from "../component/uiState/SearchSkeleton";
@@ -16,6 +14,8 @@ export function SearchPage(){
     const[maxPrice, setMaxPrice] = useState(1000);
 
     const[selectedSizes, setSelectedSizes] = useState<string[]>([]);
+
+    const [sizeCounts, setSizeCounts] = useState<Record<string, number>>({});
     
 
     const navigate = useNavigate();
@@ -31,12 +31,19 @@ export function SearchPage(){
                     sizes: selectedSizes.length > 0
                         ? selectedSizes.join(",")
                         : undefined
+                    
                 };
             try {
                 setLoading(true);
                 const result = await getProducts(params);
-
-                setProducts(result.data.products);
+                 
+                const filteredProducts = result.data.products.filter((product) => {
+                    const price = Number(product.basePrice);
+                    return price >= minPrice && price <= maxPrice;
+                });
+                setProducts(filteredProducts);
+                setSizeCounts(result.data.sizeCounts);
+                // console.log(result.data.sizeCounts)
             } catch (error) {
                 console.error("Error fetching products:", error);
             }finally{
@@ -48,21 +55,16 @@ export function SearchPage(){
     }, [search, selectedSizes, minPrice, maxPrice]);
 
      const handleSizeChange = (size: string) => {
-
         setSelectedSizes((previous) => {
-
             if (previous.includes(size)) {
-
                 return previous.filter((item) => item !== size);
-
             }
-
             return [...previous, size];
-
         });
-        console.log(size.length)
     };
-   
+
+    const sizes = ["XS", "S", "M", "L", "XL"];
+
 
 
     // Search form
@@ -96,13 +98,13 @@ export function SearchPage(){
                     </div>
 
                         <div className="mt-4 space-y-3 text-sm ">
-                            {["XS", "S", "M", "L","XL"].map((size) => (
+                            {sizes.map((size) => (
                             <label key={size} className="flex items-center justify-between cursor-pointer">
                                 <span className="flex items-center gap-3">
                                     <input 
                                     checked={selectedSizes.includes(size)}onChange={() => handleSizeChange(size)}
                                     type="checkbox" className="h-4 w-4 accent-black" /> {size}</span>
-                                <span className="text-gray-400">{size.length}</span>
+                                <span className="text-gray-400"> {sizeCounts[size] || 0}</span>
                                
                             </label>    
                             ))}
@@ -119,8 +121,8 @@ export function SearchPage(){
                     <div className="mt-4 flex items-center gap-3">
                         <div className="relative flex-1">
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">$</span>
-                            <input value={minPrice}onChange={(e) =>
-                                    setMinPrice(Number(e.target.value))} type="number"  className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+                            <input value={minPrice} 
+                            onChange={(e) =>setMinPrice(Number(e.target.value))} type="number"  className="w-full rounded-lg border border-gray-200 py-3 pl-7 pr-2 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                         </div>
                         <span className="text-gray-300">–</span>
                         <div className="relative flex-1">
@@ -143,10 +145,10 @@ export function SearchPage(){
                                     onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search for products..."
                                     className="w-full rounded-full bg-gray-100 py-4 pl-14 pr-5 text-sm focus:outline-none focus:ring-2 focus:ring-black" />
                             {setSearchQuery && (
-                                <button onClick={() => setSearchQuery("")}></button>
+                                <button onClick={() => setSearchQuery("")} type="button" className="text-gray-200 hover:text-gray-500"></button>
                             )}
                         </div>
-                        <button type="submit" className="flex items-center gap-2 rounded-full bg-black px-8 font-semibold text-white hover:bg-gray-800">
+                        <button onClick={handleSearch} type="submit" className="flex items-center gap-2 rounded-full bg-black px-8 font-semibold text-white hover:bg-gray-800">
                             Search <span>→</span>
                         </button>
                     </form>
