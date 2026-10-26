@@ -13,7 +13,6 @@ export function Banner(){
             try{
                 setLoading(true);
                 const result = await HomeDetails();
-                // console.log(result)
                 setSliders(result.data.heroSlides);   
             }catch(error){
                 console.log("An unexpected error occurred")
@@ -31,9 +30,6 @@ export function Banner(){
     if (loading) {
         return <p>Loading.....</p>;
     }
-
-    // console.log(sliders)
-
     if (sliders.length === 0) {
         return null;
     }
@@ -42,7 +38,7 @@ export function Banner(){
 
     return(
         // Banner slider
-        <section className="relative overflow-hidden bg-emerald-800 text-white">
+        <section className="relative isolate flex overflow-hidden bg-emerald-800 text-white w-full min-h-[100svh]">
             
             {sliders.map((item, index) => (
                 <img
@@ -53,34 +49,32 @@ export function Banner(){
                     index === current ? "opacity-100" : "opacity-0" }`}
                 />
             ))}
-                {/* <img  src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=1600"
-                alt="" className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 opacity-100" />
-            <img  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1600"
-                alt="" className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 opacity-0" /> */}
 
             {/* <!-- Dark overlay for text readability --> */}
             <div className="absolute inset-0 bg-black/40"></div>
 
-            
-            <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-32">
-                <h1 className="max-w-xl text-3xl font-bold md:text-5xl">{slider.title}</h1>
-                <p  className="mt-4 max-w-md text-emerald-100">
-                {slider.description}
-                </p>
-                <Link to="/" className="mt-8 inline-block rounded-md bg-white px-6 py-3 font-semibold text-emerald-800 hover:bg-emerald-50">
-                Shop now
-                </Link>
+            {/* Hero content */}
+            <div className="w-full relative z-10 min-h-[100svh] flex items-center">
+                <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 lg:py-20">
+                    <h1 className="max-w-xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">{slider.title}</h1>
+                    <p  className="mt-4 max-w-md text-sm leading-relaxed text-emerald-100 sm:text-base md:text-lg">
+                    {slider.description}
+                    </p>
+                    <Link to="/" className="mt-6 inline-block rounded-md bg-white px-5 py-3 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-50 sm:mt-8 sm:px-6 sm:text-base">
+                    Shop now
+                    </Link>
 
-               
-                <div className="mt-10 flex items-center gap-4">
-                <button  onClick={prev} aria-label="Previous slide"
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/40">‹</button>
-                <span  className="text-sm">{current + 1} / {sliders.length}</span>
-                <button onClick={next} aria-label="Next slide"
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 hover:bg-white/40">›</button>
-                </div>
+                
+                    <div className="mt-8 flex items-center gap-3 sm:mt-10 sm:gap-4">
+                        <button  onClick={prev} aria-label="Previous slide"
+                                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-lg transition hover:bg-white/40 sm:h-10 sm:w-10">‹</button>
+                        <span  className="text-sm sm:text-sm">{current + 1} / {sliders.length}</span>
+                        <button onClick={next} aria-label="Next slide"
+                                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-lg transition hover:bg-white/40 sm:h-10 sm:w-10">›</button>
+                    </div>
+                </div>    
             </div>
-            </section>
+        </section>
 
     )
 }

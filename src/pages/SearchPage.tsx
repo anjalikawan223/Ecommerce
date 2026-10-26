@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
-import { Recommendation, getProducts, type ProductRecommended, type ProductView } from "../api/productService";
+import { getProducts, type ProductView } from "../api/productService";
 import { Link, useNavigate } from "react-router-dom";
 
 export function SearchPage(){
