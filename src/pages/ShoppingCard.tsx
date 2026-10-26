@@ -5,11 +5,11 @@ export function ShoppingCart(){
     return(
         <>
         <section className="flex-grow">
-            <div className="min-h-screen bg-white p-4 md:p-6 text-black">
-                <div className="max-w-250 mx-auto">
-                    <h1 className="font-bold text-3xl mb-8 md:mb-12">Shopping Cart</h1>
+            <div className="min-h-screen bg-white p-4 md:p-8 text-black">
+                <div className="max-w-6xl mx-auto">
+                    <h1 className="font-bold text-3xl md:text-4xl mb-8 md:mb-12">Shopping Cart</h1>
                     <div className="flex flex-col lg:flex-row gap-8 items-start">
-                        <div className="w-full bg-white p-4 sm:p-6 mb-6 border border-gray-200 rounded-2xl sm:rounded-3xl">
+                        <div className="w-full bg-white p-6 mb-6 border border-gray-200 rounded-2xl">
                             <div className="items-center md:flex text-sm font-semibold pb-4 border-b border-gray-200 hidden">
                                 <span className="flex-1">Product Code</span>
                                 <span className="w-[120px] text-center">Quantity</span>
