@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+interface CartItem{
+    image: string;
+    title: string;
+    subtitle: string;
+    price: number;
+    quantity: number;   
+}
+
+interface OrderSummary{
+    subtotal: number;
+    discountamount: number;
+    discountPercentage: number;
+    deliveryfee: number;
+    total: number;
+}
+
 export function ShoppingCart(){
+
     
     return(
         <>
@@ -15,7 +33,7 @@ export function ShoppingCart(){
                                 <span className="w-[120px] text-center">Quantity</span>
                                 <span className="w-[80px] text-center">Total</span>
                                 <span className="w-[40px] text-center">Action</span>
-                            </div>
+                            </div>  
                             <div className="flex flex-col">
                                 <div className="flex items-center py-6 border-b border-gray-100 last:border-b-0 gap-4">
                                     <div className="flex item-center gap-4 flex-1 min-w-0">
@@ -174,7 +192,7 @@ export function ShoppingCart(){
                             </div>
                         </div>
                         <div className="w-fll lg:w-[380px] shrink-0 sticky top-8">
-                            <div className="p-6 bg-white border border-gray-200 rounded-3xl flex flex-col has-first:">
+                            <div className="p-6 bg-white border border-gray-200 rounded-3xl flex flex-col h-full">
                                 <h2 className="text-gray-800 mb-6 font-semibold text-lg">Order Summary</h2>
                                 <div className="flex gap-2 mb-8">
                                     <input className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500" type="text" placeholder="Discount Voucher"/>
