@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
-import { ProductDetails, type Product, type ProductRespone } from "../../api/productService";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
+import { ProductDetails, type Product, type ProductRecommended } from "../../api/productService";
 import { useParams } from "react-router-dom";
+import { ProductContentSkeleton } from "../uiState/ProductPageSkeleton";
 
-export function ProductContent ({setRecommendProduct}){
+
+export function ProductContent ({setRecommendProduct}: {setRecommendProduct: Dispatch<SetStateAction<ProductRecommended[]>>; }){
     const [detail, setDetail] = useState<Product | null>(null);
     const {slug}= useParams<{slug: string}>();
     const[selectedSize, setSelectedSize] = useState<string>("");
@@ -13,14 +15,9 @@ export function ProductContent ({setRecommendProduct}){
         const fetchProduct = async() => {
             if (!slug) return;
             try {  
-
                 const result = await ProductDetails(slug);
-                // //  if (result.success) {
-                //     setDetail(result.data);
-                // // }
                  setDetail(result.data);
                  setRecommendProduct(result.data.youMayAlsoLike)
-                // console.log(setDetail(result.data.data[0]))
             } catch (error) {
                 console.log("Failed to fetch product:", error);
             }
@@ -28,22 +25,18 @@ export function ProductContent ({setRecommendProduct}){
          fetchProduct();
     },[slug]);
 
-
-   
-    // console.log(detail)
-
     if (!detail) {
     return (
-        <p>Loading product...</p>
+        <ProductContentSkeleton/>
     )   
     }
 
     const images  = detail.images ?? [];
 
     const variants = detail.variants ?? [];
+    console.log(variants)
 
     const specifications = detail.specifications;
-
     
     const oldPrice = detail ? detail.basePrice /
           (1 - detail.discountPercentage / 100): 0;
@@ -195,33 +188,33 @@ export function ProductContent ({setRecommendProduct}){
         {/* <!-- Details tabs + image --> */}
         <section className="max-w-6xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-10">
             <div>
-            {/* <!-- Tabs --> */}
-            <div className="flex gap-8 border-b text-sm font-medium text-gray-400" id="tabs">
-                <button className="tab pb-3 -mb-px border-b-2 border-black text-black" data-tab="details">Details</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="materials">Materials</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="size">Size &amp; Fit</button>
-                <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="shipping">Shipping &amp; Returns</button>
-            </div>
+                {/* <!-- Tabs --> */}
+                <div className="flex gap-8 border-b text-sm font-medium text-gray-400" id="tabs">
+                    <button className="tab pb-3 -mb-px border-b-2 border-black text-black" data-tab="details">Details</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="materials">Materials</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="size">Size &amp; Fit</button>
+                    <button className="tab pb-3 -mb-px border-b-2 border-transparent hover:text-black" data-tab="shipping">Shipping &amp; Returns</button>
+                </div>
 
-            {/* <!-- Tab content --> */}
-            <div className="panel mt-8">
-                <p className="text-black leading-relaxed">
-                {detail.description}             
-                </p>
-                <ul className="mt-6 space-y-4 text-sm">
-                <li className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                    <span className="font-semibold">Condition:</span>{specifications?.Condition}
-                </li>
-                <li className="flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-gray-400"></span>
-                    <span className="font-semibold">Location:</span>{specifications?.Location}
-                </li>
-                </ul>
-            </div>
-            <div className="panel hidden mt-8 text-black">Patent leather and mesh upper with a translucent rubber outsole.</div>
-            <div className="panel hidden mt-8 text-black">True to size. Order half a size up if you prefer a looser fit.</div>
-            <div className="panel hidden mt-8 text-black">Free shipping on orders over $99. 30-day return policy.</div>
+                {/* <!-- Tab content --> */}
+                <div className="panel mt-8">
+                    <p className="text-black leading-relaxed">
+                    {detail.description}             
+                    </p>
+                    <ul className="mt-6 space-y-4 text-sm">
+                    <li className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+                        <span className="font-semibold">Condition:</span>{specifications?.Condition}
+                    </li>
+                    <li className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+                        <span className="font-semibold">Location:</span>{specifications?.Location}
+                    </li>
+                    </ul>
+                </div>
+                <div className="panel hidden mt-8 text-black">Patent leather and mesh upper with a translucent rubber outsole.</div>
+                <div className="panel hidden mt-8 text-black">True to size. Order half a size up if you prefer a looser fit.</div>
+                <div className="panel hidden mt-8 text-black">Free shipping on orders over $99. 30-day return policy.</div>
             </div>
             
             {images.length > 0 && (

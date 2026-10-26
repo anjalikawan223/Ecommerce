@@ -1,51 +1,53 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeDetails, type Slider } from "../../api/content";
+import { HomeSkeleton } from "../uiState/HomeSkeleton";
 
-export function Banner(){
-    const[sliders, setSliders]=useState<Slider[]>([]);
-    const[loading, setLoading]=useState<boolean>(true);
-    const[current, setCurrent]= useState<number>(0);
+export function Banner() {
+    const [sliders, setSliders] = useState<Slider[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [current, setCurrent] = useState<number>(0);
 
-    useEffect(() =>{
+    useEffect(() => {
 
-        const fetchContent= async () => {
-            try{
+        const fetchContent = async () => {
+            try {
                 setLoading(true);
                 const result = await HomeDetails();
                 setSliders(result.data.heroSlides);   
             }catch(error){
                 console.log("An unexpected error occurred")
-            
-            }finally{
+
+            } finally {
                 setLoading(false);
             }
         }
         fetchContent();
-    },[])
+    }, [])
 
     const next = () => setCurrent((current + 1) % sliders.length);
     const prev = () => setCurrent((current - 1 + sliders.length) % sliders.length);
-  
+
     if (loading) {
-        return <p>Loading.....</p>;
+        return (
+          <HomeSkeleton />
+        )
     }
     if (sliders.length === 0) {
         return null;
     }
-  
+
     const slider = sliders[current];
 
-    return(
+    return (
         // Banner slider
         <section className="relative isolate flex overflow-hidden bg-emerald-800 text-white w-full min-h-[100svh]">
             {sliders.map((item, index) => (
                 <img
-                key={item.id}
-                src={item.image}
-                alt={item.title}
-                className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${
-                    index === current ? "opacity-100" : "opacity-0" }`}
+                    key={item.id}
+                    src={item.image}
+                    alt={item.title}
+                    className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ${index === current ? "opacity-100" : "opacity-0"}`}
                 />
             ))}
 

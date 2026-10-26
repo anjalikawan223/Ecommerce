@@ -1,11 +1,10 @@
-// import { useState } from "react";
-
-import { ProductContent } from "../component/Products/ProductContent";
 import { Footer } from "../component/layouts/Footer";
 import { Header } from "../component/layouts/Header";
 import { type ProductRecommended, } from "../api/productService";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ProductContent } from "../component/Products/ProductContent";
+import { ProductSkeleton } from "../component/uiState/HomeSkeleton";
 
 export function ProductDetails() {
 
@@ -22,21 +21,20 @@ export function ProductDetails() {
 
     return (
         <>
-            <Header />
+           
             <ProductContent setRecommendProduct={setRecommendProduct} />
             {/* <!-- You May Also Like --> */}
 
-            {isRecommendingProduct ? <p>is loading data .....</p>
-                :
+            {isRecommendingProduct ? ( <ProductSkeleton/>)
+                : recommendProduct.length > 0 ? (
                 <section className="max-w-6xl mx-auto px-4 pb-20">
                     <div className="flex items-center justify-between mb-8">
                         <h2 className="text-2xl font-bold">You May Also Like</h2>
                         <a href="#" className="text-sm font-semibold flex items-center gap-1">View All →</a>
                     </div>
-
+                    
                     <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-
-                        {recommendProduct.map((product) => (
+                        {recommendProduct.map((product) =>  (
                             <article key={product._id} className="group rounded-lg bg-white border border-stone-200 overflow-hidden">
                                 <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
                                     <Link to={`/product/${product.slug}`}>
@@ -60,19 +58,12 @@ export function ProductDetails() {
                             </article>
                         ))}
                     </div>
-                </section>}
-
-
-
-
-            <Footer />
-
-
-
+                    
+                </section>) : (
+                <div className="col-span-full text-gray-400">
+                    No recommendations available at the moment.
+                </div>)
+                }
         </>
-
-
     )
-
-
 }
