@@ -1,24 +1,83 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { dataCart, type Cart } from "../lib/Data";
+import { dataList } from "../api/cartData";
+// import { ShoppingCartSkeleton } from "../component/uiState/ShoppingCartSkeleton";
 
-interface CartItem{
-    image: string;
-    title: string;
-    subtitle: string;
-    price: number;
-    quantity: number;   
-}
-
-interface OrderSummary{
-    subtotal: number;
-    discountamount: number;
-    discountPercentage: number;
-    deliveryfee: number;
-    total: number;
-}
 
 export function ShoppingCart(){
+// const[loading, setloading]= useState()
+const[updateCart, setUpdateCart]= useState<Cart>(dataCart[0])
+console.log(dataCart)
 
+const increase = (id:string) =>{
+    setUpdateCart((prev) =>({
+        ...prev,
+        items: prev.items.map((item)=> 
+            item.product.id === id?{...item, quantity: item.quantity + 1} : item
+        )   
+    })
+    )
+
+}
+
+const decrease = (id: string) =>{
+        setUpdateCart((prev)=> ({
+            ...prev,
+            items: prev.items.map((item) =>
+                item.product.id === id?{...item, quantity:Math.max(1, item.quantity - 1)}:item   
+            )
+        })
+    )
+}
+
+// const price = updateCart.items.reduce(
+//     (total, item) =>
+//       total + item.product.price * item.quantity,0
+//   );
+// const increase = (id: string) {
+//     setUpdateCart((oldCart) =>
+//       updateCart.items.map((item) =>
+//         item.product.id === id
+//           ? { ...item, quantity: item.product.quantity + 1 }
+//           : item
+//       )
+//     );
+//   }
+
+//   function decrease(id: string) {
+//     setUpdateCart((oldCart) =>
+//       updateCart.oldCart.map((item) =>
+//         item.id === id
+//           ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+//           : item
+//       )
+//     );
+//   }
+
+  
+
+  function removeItem(id: string) {
+    setUpdateCart({
+        ...updateCart,
+      items: updateCart.items.filter((item) => item.product.id !== id)
+    });
+  }
+
+
+  let subtotal = 0;
+
+  updateCart.items.forEach((item) => {
+    subtotal = subtotal + item.product.price * item.quantity;
+  });
+
+  const discount = subtotal * 0.10;
+  const deliveryFee = subtotal > 0 ? 150 : 0;
+  const total = subtotal - discount + deliveryFee;
+
+// if(loading){
+//     return( <ShoppingCartSkeleton />)
+// }
     
     return(
         <>
@@ -34,26 +93,33 @@ export function ShoppingCart(){
                                 <span className="w-[80px] text-center">Total</span>
                                 <span className="w-[40px] text-center">Action</span>
                             </div>  
-                            <div className="flex flex-col">
+                            {updateCart.items.length === 0 && (
+                                <p className="py-10 text-center text-sm text-gray-500">
+                                Your cart is empty.
+                              </p>
+                            )}
+                            
+                            {updateCart.items.map((item) =>(
+                            <div key={item.product.id} className="flex flex-col">
                                 <div className="flex items-center py-6 border-b border-gray-100 last:border-b-0 gap-4">
                                     <div className="flex item-center gap-4 flex-1 min-w-0">
                                         <div className="w-20 h-20 bg-gray-100 rounded-2xl overflow-hidden shrink-0">
-                                        <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267" alt="" className="w-full h-full object-cover" />
+                                        <img src={item.product.thumbnail} alt={item.product.name} className="w-full h-full object-cover" />
                                         </div>
                                         <div className="min-w-0">
-                                            <h3 className="font-semibold text-gray-900">Furniture Set</h3>
-                                            <p className="text-sm text-gray-900">Set: colour: coffee</p>
+                                            <h3 className="font-semibold text-gray-900">{item.product.name}</h3>
+                                            <p className="text-sm text-gray-900">{item.product.category}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center min-w-[120px] h-8 border border-gray-400 rounded-full px-1 justify-center">
-                                        <button className="w-10 text-gray-600 p-1
+                                        <button  onClick={() => decrease(item.product.id)} className="w-10 text-gray-600 p-1
                                          hover:text-black transition-colors cursor-pointer disabled:opacity-50 ">-</button>
-                                        <span className="text-gray-600 font-medium text-sm w-6">1</span>
-                                        <button className="text-gray-600 p-1 hover:text-black transition-colors cursor-pointer">+</button>
+                                        <span className="text-gray-600 font-medium text-sm w-6">{item.quantity}</span>
+                                        <button onClick={() => increase(item.product.id)} className="text-gray-600 p-1 hover:text-black transition-colors cursor-pointer">+</button>
                                     </div>
-                                    <div className="text-center font-semibold text-gray-600 min-w-[80px] ">$437</div>
+                                    <div className="text-center font-semibold text-gray-600 min-w-[80px] ">${(item.product.price * item.quantity).toFixed(0)}</div>
                                     <div className="min-w-[40px] flex justify-end">
-                                        <button className="text-gray-400 p-2 hover:text-red-500 transition-colors rounded-full cursor-pointer hover:bg-gray-50">
+                                        <button onClick={()=>removeItem(item.product.id)} className="text-gray-400 p-2 hover:text-red-500 transition-colors rounded-full cursor-pointer hover:bg-gray-50">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
@@ -86,110 +152,7 @@ export function ShoppingCart(){
                                     </div>                                                                      
                                 </div>
                             </div>
-                            <div className="flex flex-col">
-                                <div className="flex items-center py-6 border-b border-gray-100 last:border-b-0 gap-4">
-                                    <div className="flex item-center gap-4 flex-1 min-w-0">
-                                        <div className="w-20 h-20 bg-gray-100 rounded-2xl overflow-hidden shrink-0">
-                                        <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267" alt="" className="w-full h-full object-cover" />
-                                        </div>
-                                        <div className="min-w-0">
-                                            <h3 className="font-semibold text-gray-800">Vintage Dining Set</h3>
-                                            <p className="text-sm text-gray-900">Set: colour: Brown</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center min-w-[120px] h-8 border border-gray-400 rounded-full px-1 justify-center">
-                                        <button className="w-10 text-gray-600 p-1
-                                         hover:text-black transition-colors cursor-pointer disabled:opacity-50 ">-</button>
-                                        <span className="text-gray-600 font-medium text-sm w-6">2</span>
-                                        <button className="text-gray-600 p-1 hover:text-black transition-colors cursor-pointer">+</button>
-                                    </div>
-                                    <div className="text-center font-semibold text-gray-600 min-w-[80px] ">$945</div>
-                                    <div className="min-w-[40px] flex justify-end">
-                                        <button className="text-gray-400 p-2 hover:text-red-500 transition-colors rounded-full cursor-pointer hover:bg-gray-50">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="1.8"
-                                                className="w-5 h-5"
-                                                >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M4 7h16"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1Z"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M6 7l1 13h10l1-13"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    d="M10 11v5M14 11v5"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>                                                                      
-                                </div>
-                            </div>
-                            <div className="flex flex-col">
-                                <div className="flex items-center py-6 border-b border-gray-100 last:border-b-0 gap-4">
-                                    <div className="flex item-center gap-4 flex-1 min-w-0">
-                                        <div className="w-20 h-20 bg-gray-100 rounded-2xl overflow-hidden shrink-0">
-                                        <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267" alt="" className="w-full h-full object-cover" />
-                                        </div>
-                                        <div className="min-w-0">
-                                            <h3 className="font-semibold text-gray-800 truncate">Studio Chair</h3>
-                                            <p className="text-sm text-gray-900 truncate">Set: colour: Deep Green</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center min-w-[120px] h-8 border border-gray-400 rounded-full px-1 justify-center">
-                                        <button className="text-gray-600 p-1
-                                         hover:text-black transition-colors cursor-pointer disabled:opacity-50 w-10">-</button>
-                                        <span className="text-gray-600 font-medium text-sm w-6">3</span>
-                                        <button className="text-gray-600 p-1 hover:text-black transition-colors cursor-pointer">+</button>
-                                    </div>
-                                    <div className="text-center font-semibold text-gray-600 min-w-[80px] ">$597</div>
-                                    <div className="min-w-[40px] flex justify-end">
-                                        <button className="text-gray-400 p-2 hover:text-red-500 transition-colors rounded-full cursor-pointer hover:bg-gray-50">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="1.8"
-                                                className="w-5 h-5"
-                                                >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M4 7h16"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1Z"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M6 7l1 13h10l1-13"
-                                                />
-                                                <path
-                                                    strokeLinecap="round"
-                                                    d="M10 11v5M14 11v5"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>                                                                      
-                                </div>
-                            </div>
+                            ))}
                         </div>
                         <div className="w-fll lg:w-[380px] shrink-0 sticky top-8">
                             <div className="p-6 bg-white border border-gray-200 rounded-3xl flex flex-col h-full">
@@ -201,19 +164,19 @@ export function ShoppingCart(){
                                 <div className="space-y-4 mb-8 flex-1">
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-gray-600">Sub Total</span>
-                                        <span className="font-semibold text-gray-900">1979 USD</span>
+                                        <span className="font-semibold text-gray-900">{subtotal.toFixed(0)}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-gray-600">Discount(10%)</span>
-                                        <span className="font-semibold text-gray-900">-198 USD</span>
+                                        <span className="font-semibold text-gray-900">{discount.toFixed(0)}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-gray-600">Delivery fee</span>
-                                        <span className="font-semibold text-gray-900">50.00 USD</span>
+                                        <span className="font-semibold text-gray-900">{total.toFixed(0)}</span>
                                     </div>
                                     <div className="pt-4 mt-4 border-t border-gray-100 flex justify-between items-center">
                                         <span className="text-gray-600 font-medium">Total</span>
-                                        <span className="text-xl font-bold text-gray-900">$1831 USD</span>
+                                        <span className="text-xl font-bold text-gray-900">$ {total.toFixed(0)}</span>
                                     </div>
                                     <div className="flex items-start gap-3 mb-6 bg-gray-50/50 p-3 rounded-xl text-xs text-gray-600">
                                         <div className="shrink-0 mt-0.5 text-gray-400">
